@@ -2,7 +2,9 @@
  * @name NoSuperReactions
  * @author xenona
  * @description Removes super reactions.
- * @version 0.9.9
+ * @version 1.0.0
+ * @source https://github.com/xenrelle/RemoveSuperReactions/
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/RemoveSuperReactions/main/NoSuperReactions.plugin.js
  */
 
 module.exports = class MyPlugin {
@@ -13,13 +15,6 @@ module.exports = class MyPlugin {
 
 	start() {
 		BdApi.injectCSS("noSuperReactions",`
-			.my-button {
-				padding: 4px;
-				border-radius: 5px;
-				background: black;
-				color: white;
-			}
-
 			.hideEmoji-3W3sEI {
 				opacity: 1;
 			}
