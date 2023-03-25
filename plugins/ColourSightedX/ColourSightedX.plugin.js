@@ -2,7 +2,9 @@
  * @name ColourSightedX
  * @author xenona
  * @description Makes statuses full circles again.
- * @version 0.1.3
+ * @version 0.1.4
+ * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/ColourSightedX
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/ColourSightedX/ColourSightedX.plugin.js
  */
 
 module.exports = class MyPlugin {

@@ -2,9 +2,9 @@
  * @name NoSuperReactions
  * @author xenona
  * @description Removes super reactions.
- * @version 1.0.0
- * @source https://github.com/xenrelle/RemoveSuperReactions/
- * @updateUrl https://raw.githubusercontent.com/xenrelle/RemoveSuperReactions/main/NoSuperReactions.plugin.js
+ * @version 1.0.1
+ * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/NoSuperReactions
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/NoSuperReactions/NoSuperReactions.plugin.js
  */
 
 module.exports = class MyPlugin {
