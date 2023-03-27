@@ -31,7 +31,7 @@
 const config = {
 	info: {
 		name: "OnlineFriendCounter",
-		version: "1.0.0",
+		version: "1.0.1",
 		authors: [{
 			name: "xenona",
 			discord_id: "621137770697457674",
