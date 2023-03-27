@@ -3,7 +3,9 @@
  * @author xenona
  * @authorId 621137770697457674
  * @description Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**
- * @version 1.0.0
+ * @version 1.0.1
+ * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
@@ -35,14 +37,16 @@ const config = {
 			discord_id: "621137770697457674",
 			github_username: "xenrelle"
 		}],
-		description: `Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**`
+		description: `Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**`,
+		github: "https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter",
+        github_raw: "https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js"
 	},
 	changelog: [
 		{
-			title: "Initial Release",
+			title: "Add Github Metadata",
 			type: "added",
 			items: [
-				"This is the first release of this plugin."
+				"Adds the GitHub metadata."
 			]
 		}
 	],
