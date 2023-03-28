@@ -1,6 +1,7 @@
 /**
  * @name NoSuperReactions
  * @author xenona
+ * @authorId 621137770697457674
  * @description Removes super reactions.
  * @version 1.0.2
  * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/NoSuperReactions

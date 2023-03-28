@@ -1,11 +1,11 @@
 /**
- * @name OnlineFriendCounter
+ * @name OldFileUpload
  * @author xenona
  * @authorId 621137770697457674
- * @description Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**
- * @version 1.0.1
- * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter
- * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js
+ * @description Reverts the functionality of the (+) button to just file uploads, requiring only one click. **Requires ZeresPluginLibrary.**
+ * @version 1.0.0
+ * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OldFileUpload
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OldFileUpload/OldFileUpload.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
@@ -30,26 +30,26 @@
 @else@*/
 const config = {
 	info: {
-		name: "OnlineFriendCounter",
-		version: "1.0.1",
+		name: "OldFileUpload",
+		version: "1.0.0",
 		authors: [{
 			name: "xenona",
 			discord_id: "621137770697457674",
 			github_username: "xenrelle"
 		}],
-		description: `Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**`,
-		github: "https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter",
-        github_raw: "https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js"
+		description: "Reverts the functionality of the (+) button to just file uploads, requiring only one click. **Requires ZeresPluginLibrary.**",
+		github: "https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OldFileUpload",
+        github_raw: "https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OldFileUpload/OldFileUpload.plugin.js"
 	},
-	/*changelog: [
+	changelog: [
 		{
-			title: "Add Github Metadata",
+			title: "Initial Release",
 			type: "added",
 			items: [
-				"Adds the GitHub metadata."
+				"This is the first release of this plugin."
 			]
 		}
-	],*/
+	],
 	defaultConfig: [
 		{
 			type: "switch",
@@ -80,77 +80,51 @@ class Dummy {
  
 module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 	const plugin = (Plugin, Api) => {
-	const { Patcher } = window.BdApi;
-	const { DiscordModules, WebpackModules, Toasts } = Api;
-	const RelationshipStore = DiscordModules.RelationshipStore;
-	const PresenceStore = WebpackModules.getByProps("getStatus", "isMobileOnline");
+	const { ContextMenu, DOM, Patcher, UI } = window.BdApi;
+	const { DiscordModules, ReactTools, WebpackModules, Toasts } = Api;
 	const Dispatcher = DiscordModules.Dispatcher;
 
-	return class OnlineFriendCounter extends Plugin {
+	return class OldFileUpload extends Plugin {
 		constructor() {
-			super();
+			super()
+			this.originalFunction = null;
 		}
 
 		onStart() {
 			if (this.settings.showToasts) Toasts.success(`${config.info.name} v${config.info.version} has started!`)
 
-			BdApi.injectCSS("onlineFriendCounter",`
-				.friendCounterLabel {
-					margin-bottom: 8px;
-					font-weight: 500;
-					font-size: 10px;
-					text-align: center;
-					width: 72px;
-					color: var(--channels-default);
-				}
-
-				.guildSeparatorExtension {
-					flex-direction: column;
-					align-items: center;
-				}
-			`);
-
-			// Check if theres already a counter for some reason
-			if (document.querySelector(`.friendCounterLabel`) != null) return;
-
-			var sidebar = document.querySelector(`ul[data-list-id="guildsnav"] > .scroller-3X7KbA.none-1rXy4P.scrollerBase-1Pkza4`);
-			if (sidebar == null) return;
-			var separator = document.querySelector(`.scroller-3X7KbA.none-1rXy4P.scrollerBase-1Pkza4 > div:nth-child(2)`);
-			separator.classList.add(`guildSeparatorExtension`);
-			var counter = document.createElement('div');
-			counter.classList.add("friendCounterLabel")
-			counter.innerHTML = `${this.getOnlineCount()} ONLINE`
-			separator.insertBefore(counter, separator.firstChild);
+			this.patchButton();
 			Patcher.after(this.name, Dispatcher, "dispatch", (_this, [props], ret) => {
-				if (props.type === "PRESENCE_UPDATES") {
-					this.updateOnlineCount()
+				// PS: CHANNEL_SELECT would seem more likely to be the right choice, but that is called before the new button is loaded.
+				if (props.type === 'UPDATE_VISIBLE_MESSAGES') { // New Channel selected, re-patch button
+					this.patchButton();
 				}
 			});
 		}
 		
 		onStop() {
-			if (this.settings.showToasts) Toasts.error(`${config.info.name} v${config.info.version} has stopped!`)
+			if (this.settings.showToasts) Toasts.error(`${config.info.name} v${config.info.version} has stopped!`);
 
-			Patcher.unpatchAll(this.name)
-			BdApi.clearCSS("onlineFriendCounter");
-			var counter = document.querySelector(`.friendCounterLabel`);
-			if (counter != null) counter.remove();
-			var guildSeparator = document.querySelector(`.guildSeparatorExtension`)
-			if (guildSeparator != null) guildSeparator.classList.remove(`guildSeparatorExtension`);
+			Patcher.unpatchAll(this.name);
+			this.unpatchButton();
 		}
 
-		updateOnlineCount() {
-			var counter = document.querySelector(`.friendCounterLabel`);
-			counter.innerHTML = `${this.getOnlineCount()} ONLINE`;
+		patchButton() {
+			var uploadButton = document.querySelector(`.attachWrapper-3slhXI > button.attachButton-_ACFSu:not(.oldFileUploadPatched)`);
+			if (uploadButton == null) return; // No need to replace the button if it isn't there!
+			var inst = ReactTools.getReactInstance(uploadButton);
+			this.originalFunction = inst.memoizedProps.onClick;
+			inst.memoizedProps.onClick = inst.memoizedProps.onDoubleClick;
+			uploadButton.classList.add(`oldFileUploadPatched`);
 		}
 
-		getOnlineCount() {
-			var online = 0;
-			var friends = RelationshipStore.getFriendIDs();
-			for (var i = 0; i < friends.length; i++) {
-				if (PresenceStore.getStatus(friends[i]) != "offline") online++;
-			}
-			return online;
+		unpatchButton() {
+			var uploadButton = document.querySelector(`.attachWrapper-3slhXI > button.attachButton-_ACFSu.oldFileUploadPatched`);
+			if (uploadButton == null) return; // No need to replace the button if it isn't patched!
+			var inst = ReactTools.getReactInstance(uploadButton);
+			inst.memoizedProps.onClick = this.originalFunction;
+			this.originalFunction = null;
+			uploadButton.classList.remove(`oldFileUploadPatched`);
 		}
 
 		getSettingsPanel() {
