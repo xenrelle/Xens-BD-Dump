@@ -3,48 +3,48 @@
  * @author xenona
  * @authorId 621137770697457674
  * @description Makes statuses full circles again.
- * @version 0.1.5
+ * @version 1.0.0
  * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/UnColourBlind
  * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/UnColourBlind/UnColourBlind.plugin.js
  */
 
 module.exports = class MyPlugin {
-	observer = null;
+	originalMasks = [];
 	constructor(meta) {
 
 	}
 
 	start() {
-		// this code is shit please save your eyes lmfao
-		this.observer = new MutationObserver(mutations => {
-			var statuses = document.querySelectorAll(".mask-1y0tyc.svg-1G_H_8 > .pointerEvents-2KjWnj:not(.unColourBlindParsed)");
-			var otherStatuses = document.querySelectorAll(".mask-3tgVZv.icon-3XHs8t > foreignObject:not(.unColourBlindParsed), .mask-3tgVZv.icon-OgaO6F > foreignObject:not(.unColourBlindParsed)")
-			var statusTransitions = document.querySelectorAll(".mask-1y0tyc.svg-1G_H_8 > .cursorDefault-2M8ZNp:not(.unColourBlindParsed)"); // For when status transition
-			for (var status of statuses) {
-				if (status.previousSibling.getAttribute(`mask`) != `url(#svg-mask-avatar-status-mobile-32)`) { // if not Mobile
-					status.setAttribute(`mask`, `url(#svg-mask-status-online)`);
-				}
-				status.classList.add("unColourBlindParsed");
+		BdApi.injectCSS("unColourBlind",`
+			.mask-1y0tyc.svg-1G_H_8 > svg > mask > *[fill="black"]:not([cy="12.5"]):not([x="8.75"][y="2.5"]),
+			.status-12NUUC.disableFlex-3I_kDH > svg > mask > *[fill="black"]:not([cy="12.5"]):not([x="1.25"][y="2.5"]) {
+				display: none;
 			}
-			for (var status of otherStatuses) {
-				status.setAttribute(`mask`, `url(#svg-mask-status-online)`);
-				status.classList.add("unColourBlindParsed");
-			}
-			for (var status of statusTransitions) {
-				var mask = status.firstChild;
-				mask.innerHTML = `<rect x="7.5" y="5" width="10" height="10" rx="5" ry="5" fill="white"></rect>`;
-				status.classList.add("unColourBlindParsed");
-			}
-		});
+		`);
 
-		this.observer.observe(document.body, {
-			childList: true,
-			subtree: true
-		});
+		var onlineMask = document.querySelector("#svg-mask-status-online");
+		var idleMask = document.querySelector("#svg-mask-status-idle");
+		var dndMask = document.querySelector("#svg-mask-status-dnd");
+		var offlineMask = document.querySelector("#svg-mask-status-offline");
+		var streamingMask = document.querySelector("#svg-mask-status-streaming"); 
+		this.originalMasks = [ idleMask.innerHTML, dndMask.innerHTML, offlineMask.innerHTML, streamingMask.innerHTML ];
+		idleMask.innerHTML = onlineMask.innerHTML;
+		dndMask.innerHTML = onlineMask.innerHTML;
+		offlineMask.innerHTML = onlineMask.innerHTML;
+		streamingMask.innerHTML = onlineMask.innerHTML;
 	}
-
+	
 	stop() {
-		this.observer.disconnect();
-		this.observer = null;
+		BdApi.clearCSS("unColourBlind");
+		Patcher.unpatchAll(this.name);
+
+		var idleMask = document.querySelector("#svg-mask-status-idle");
+		var dndMask = document.querySelector("#svg-mask-status-dnd");
+		var offlineMask = document.querySelector("#svg-mask-status-offline");
+		var streamingMask = document.querySelector("#svg-mask-status-streaming"); 
+		idleMask.innerHTML = this.originalMasks[0];
+		dndMask.innerHTML = this.originalMasks[1];
+		offlineMask.innerHTML = this.originalMasks[2];
+		streamingMask.innerHTML = this.originalMasks[3];
 	}
 };
