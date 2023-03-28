@@ -36,7 +36,6 @@ module.exports = class MyPlugin {
 	
 	stop() {
 		BdApi.clearCSS("unColourBlind");
-		Patcher.unpatchAll(this.name);
 
 		var idleMask = document.querySelector("#svg-mask-status-idle");
 		var dndMask = document.querySelector("#svg-mask-status-dnd");
