@@ -2,7 +2,7 @@
 
 A BetterDiscord plugin to revert the (+) button's functionality to just file uploads, like it used to be before it was changed in 2021. If you're like me and don't give a shit about the other menu options, this is for you!
 
-*image goes here*
+![image](https://user-images.githubusercontent.com/83364207/228118827-3aad4ed3-decd-479f-aa18-7a4e4ccda2ec.png)
 
 ## Requirements
 
