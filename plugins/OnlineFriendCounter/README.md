@@ -1,6 +1,6 @@
 # OnlineFriendCounter
 
-A BetterDiscord plugin to restore the old online label that was removed in the mid-2019, specifying how many of your friends are online. Has the added benefit of updating in real-time as well.
+A BetterDiscord plugin to restore the old online label that was removed in mid-2019, specifying how many of your friends are online. Has the added benefit of updating in real-time as well.
 
 ![Preview](https://user-images.githubusercontent.com/83364207/228078404-3b808c60-8778-4017-9e79-2a78dd7d36c7.png)
 
