@@ -41,7 +41,7 @@ const config = {
 		github: "https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter",
         github_raw: "https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js"
 	},
-	/*changelog: [
+	changelog: [
 		{
 			title: "Add Github Metadata",
 			type: "added",
@@ -49,7 +49,7 @@ const config = {
 				"Adds the GitHub metadata."
 			]
 		}
-	],*/
+	],
 	defaultConfig: [
 		{
 			type: "switch",
