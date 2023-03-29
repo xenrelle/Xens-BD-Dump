@@ -11,3 +11,7 @@ This plugin requires [ZeresPluginLibrary](https://github.com/rauenzi/BDPluginLib
 ## How to Install
 
 Download the `OldFileUpload.plugin.js` file and place it into your BetterDiscord plugins folder. Afterwards, turn the plugin on, and you should have a simplified plus button.
+
+## Known Bugs
+
+• Sometimes when you move to channels quickly and try to open the button quickly, it won't get patched. Simply move out of and back into the channel to fix.
