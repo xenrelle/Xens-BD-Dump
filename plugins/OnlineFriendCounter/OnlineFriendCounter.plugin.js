@@ -138,7 +138,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 		}
 
 		updateOnlineCount() {
-			if (document.querySelector(`.friendCounterLabel`) != null) return this.createLabel();
+			if (document.querySelector(`.friendCounterLabel`) == null) return this.createLabel();
 			var counter = document.querySelector(`.friendCounterLabel`);
 			counter.innerHTML = `${this.getOnlineCount()} ONLINE`;
 		}
