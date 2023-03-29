@@ -2,7 +2,8 @@
 
 A BetterDiscord theme to revert the mention badge back to its old look.
 
-*image goes here*
+![image](https://user-images.githubusercontent.com/83364207/228439405-3ce55849-1560-4275-84a3-85f6295f95d2.png)  
+<sub>yes I had to include the wise mystical tree shut up</sub>
 
 ## How to Install
 
