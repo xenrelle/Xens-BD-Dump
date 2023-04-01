@@ -2,7 +2,7 @@
 
 You can now @someone to randomly select somebody ａｔ ｒａｎｄｏｍ
 
-*teehee*
+![image](https://user-images.githubusercontent.com/83364207/229304756-ca2053d4-acca-43cc-8dd8-98306dff9283.png)
 
 ## Requirements
 
