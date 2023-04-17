@@ -1,3 +1,6 @@
+> **Warning**
+> This plugin does not seem to work at the moment! Please wait until I make an update to this plugin.
+
 # OldFileUpload
 
 A BetterDiscord plugin to revert the (+) button's functionality to just file uploads, like it used to be before it was changed in 2021. If you're like me and don't give a shit about the other menu options, this is for you!
