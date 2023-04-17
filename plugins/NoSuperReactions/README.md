@@ -11,4 +11,5 @@ This plugin doesn't rely on any libraries, so you can just run it as is!
 ## How to Install
 
 Download the `NoSuperReactions.plugin.js` file and place it into your BetterDiscord plugins folder. Afterwards, turn the plugin on, and you should no longer see Super Reactions.  
+  
 If you wish to use the theme version instead, download the `NoSuperReactions.theme.css` file and place it into your BetterDiscord themes folder.
