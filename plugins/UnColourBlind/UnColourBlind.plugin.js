@@ -9,7 +9,6 @@
  */
 
 module.exports = class MyPlugin {
-	originalMasks = [];
 	constructor(meta) {
 
 	}
