@@ -3,9 +3,7 @@
  * @author xenona
  * @authorId 621137770697457674
  * @description Highly-customizable plugin that hides certain (possibly annoying) elements from Discord. **Requires ZeresPluginLibrary.**
- * @version 1.0.0
- * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/ShutUpDiscord
- * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/ShutUpDiscord/ShutUpDiscord.plugin.js
+ * @version 1.0.1
  */
 /*@cc_on
 @if (@_jscript)
@@ -31,7 +29,7 @@
 const config = {
 	info: {
 		name: "ShutUpDiscord!",
-		version: "1.0.0",
+		version: "1.0.1",
 		authors: [{
 			name: "xenona",
 			discord_id: "621137770697457674",
@@ -41,10 +39,10 @@ const config = {
 	},
 	changelog: [
 		{
-			title: "Initial Release",
-			type: "added",
+			title: "[v1.0.1] Fixes",
+			type: "fixed",
 			items: [
-				"This is the first release of this plugin."
+				"Some fixes because I'm a terrible coder :')"
 			]
 		}
 	],
@@ -184,6 +182,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 			for (var style of this.styles) {
 				BdApi.clearCSS(style);
 			}
+			this.styles = [];
 
 			/* USERS */
 			if (this.settings.users.avatarDecoration) this.addStyle(`avatarDecoration`, this.avatarDecorationStyle)
