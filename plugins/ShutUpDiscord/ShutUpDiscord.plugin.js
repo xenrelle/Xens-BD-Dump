@@ -4,6 +4,8 @@
  * @authorId 621137770697457674
  * @description Highly-customizable plugin that hides certain (possibly annoying) elements from Discord. **Requires ZeresPluginLibrary.**
  * @version 1.0.1
+ * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/ShutUpDiscord
+ * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/ShutUpDiscord/ShutUpDiscord.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
