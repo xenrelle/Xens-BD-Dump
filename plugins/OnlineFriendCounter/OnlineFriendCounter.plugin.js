@@ -3,7 +3,7 @@
  * @author xenona
  * @authorId 621137770697457674
  * @description Restores the "ONLINE" text under the home button. **Requires ZeresPluginLibrary.**
- * @version 1.0.2
+ * @version 1.0.3
  * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OnlineFriendCounter
  * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OnlineFriendCounter/OnlineFriendCounter.plugin.js
  */
@@ -31,7 +31,7 @@
 const config = {
 	info: {
 		name: "OnlineFriendCounter",
-		version: "1.0.2",
+		version: "1.0.3",
 		authors: [{
 			name: "xenona",
 			discord_id: "621137770697457674",
@@ -43,17 +43,10 @@ const config = {
 	},
 	changelog: [
 		{
-			title: "v1.0.2 Automatic Repair",
+			title: "[v1.0.3] Bug Fixes",
 			type: "fixed",
 			items: [
-				"Checks if the label is missing, and if so it automatically tries to re-create it."
-			]
-		},
-		{
-			title: "v1.0.1 Add Github Metadata",
-			type: "added",
-			items: [
-				"Adds the GitHub metadata."
+				"The label should no longer appear incorrectly upon receiving a DM."
 			]
 		}
 	],
@@ -110,11 +103,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 					width: 72px;
 					color: var(--channels-default);
 				}
-
-				.guildSeparatorExtension {
-					flex-direction: column;
-					align-items: center;
-				}
 			`);
 
 			this.createLabel()
@@ -133,8 +121,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 			BdApi.clearCSS("onlineFriendCounter");
 			var counter = document.querySelector(`.friendCounterLabel`);
 			if (counter != null) counter.remove();
-			var guildSeparator = document.querySelector(`.guildSeparatorExtension`)
-			if (guildSeparator != null) guildSeparator.classList.remove(`guildSeparatorExtension`);
 		}
 
 		updateOnlineCount() {
@@ -146,15 +132,12 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 		createLabel() {
 			// Check if theres already a counter for some reason
 			if (document.querySelector(`.friendCounterLabel`) != null) return;
-
-			var sidebar = document.querySelector(`ul[data-list-id="guildsnav"] > .scroller-3X7KbA.none-1rXy4P.scrollerBase-1Pkza4`);
-			if (sidebar == null) return;
-			var separator = document.querySelector(`.scroller-3X7KbA.none-1rXy4P.scrollerBase-1Pkza4 > div:nth-child(2)`);
-			separator.classList.add(`guildSeparatorExtension`);
+			if (document.querySelector(`ul[data-list-id="guildsnav"] > .scroller-3X7KbA.none-1rXy4P.scrollerBase-1Pkza4`) == null) return;
+			var homeButton = document.querySelector(`.tutorialContainer-1pL9QS`);
 			var counter = document.createElement('div');
 			counter.classList.add("friendCounterLabel")
 			counter.innerHTML = `${this.getOnlineCount()} ONLINE`
-			separator.insertBefore(counter, separator.firstChild);
+			homeButton.lastElementChild.parentNode.insertBefore(counter, homeButton.lastElementChild.nextSibling)
 		}
 
 		getOnlineCount() {
