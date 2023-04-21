@@ -1,7 +1,7 @@
 /**
  * @name OldPing
  * @author xenona
- * @version 1.0.0
+ * @version 1.0.1
  * @description A theme to change the mention badge's appearance back to its old look.
  */
 
@@ -14,7 +14,29 @@
 	padding: 5.5px !important;
 	box-shadow: 0px 1px 0px rgb(0, 0, 0, 0.25), inset 0px 1px 0px rgb(255, 255, 255, 0.25);
 	text-shadow: 0px 1px 0px rgb(0, 0, 0, 0.25);
+	top: 2px;
+	left: 2px;
+	position: relative;
 }
 rect[id*="lower_badge_masks"] {
 	display: none;
+}
+
+.unreadMentionsBar-ZXXoOH {
+	border-radius: 4px;
+	height: 20px;
+	font-weight: 500;
+	font-size: 11px;
+	box-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+
+.unreadMentionsIndicatorTop-2bTgUU .text-2GsXbW::after {
+	content: "🡡";
+	padding-left: 5px;
+	font-size: 10px;
+}
+.unreadMentionsIndicatorBottom-3RJMnQ .text-2GsXbW::after {
+	content: "🡣";
+	padding-left: 5px;
+	font-size: 10px;
 }
