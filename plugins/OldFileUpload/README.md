@@ -1,6 +1,3 @@
-> **Warning**
-> This plugin does not seem to work at the moment! Please wait until I make an update to this plugin.
-
 # OldFileUpload
 
 A BetterDiscord plugin to revert the (+) button's functionality to just file uploads, like it used to be before it was changed in 2021. If you're like me and don't give a shit about the other menu options, this is for you!
@@ -17,4 +14,4 @@ Download the `OldFileUpload.plugin.js` file and place it into your BetterDiscord
 
 ## Known Bugs
 
-• Sometimes when you move to channels quickly and try to open the button quickly, it won't get patched. Simply move out of and back into the channel to fix.
+• Sometimes when you move to channels quickly and try to open the button quickly, the menu will still appear, but it will be patched shortly after.

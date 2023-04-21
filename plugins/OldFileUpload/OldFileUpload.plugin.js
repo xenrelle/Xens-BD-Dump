@@ -3,7 +3,7 @@
  * @author xenona
  * @authorId 621137770697457674
  * @description Reverts the functionality of the (+) button to just file uploads, requiring only one click. **Requires ZeresPluginLibrary.**
- * @version 1.0.0
+ * @version 1.0.1
  * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/OldFileUpload
  * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/OldFileUpload/OldFileUpload.plugin.js
  */
@@ -31,7 +31,7 @@
 const config = {
 	info: {
 		name: "OldFileUpload",
-		version: "1.0.0",
+		version: "1.0.1",
 		authors: [{
 			name: "xenona",
 			discord_id: "621137770697457674",
@@ -43,10 +43,10 @@ const config = {
 	},
 	changelog: [
 		{
-			title: "Initial Release",
-			type: "added",
+			title: "[v1.0.1] Bug Fixes",
+			type: "fixed",
 			items: [
-				"This is the first release of this plugin."
+				"Fixed the patch not working at all."
 			]
 		}
 	],
@@ -87,7 +87,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 	return class OldFileUpload extends Plugin {
 		constructor() {
 			super()
-			this.originalFunction = null;
+			this.eventListener = null;
 		}
 
 		onStart() {
@@ -113,17 +113,22 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 			var uploadButton = document.querySelector(`.attachWrapper-3slhXI > button.attachButton-_ACFSu:not(.oldFileUploadPatched)`);
 			if (uploadButton == null) return; // No need to replace the button if it isn't there!
 			var inst = ReactTools.getReactInstance(uploadButton);
-			this.originalFunction = inst.memoizedProps.onClick;
-			inst.memoizedProps.onClick = inst.memoizedProps.onDoubleClick;
+			//inst.memoizedProps.onClick = inst.memoizedProps.onDoubleClick;
+			this.eventListener = (event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				event.stopImmediatePropagation();
+
+				inst.memoizedProps.onDoubleClick();
+			};
+			uploadButton.addEventListener("click", this.eventListener);
 			uploadButton.classList.add(`oldFileUploadPatched`);
 		}
 
 		unpatchButton() {
 			var uploadButton = document.querySelector(`.attachWrapper-3slhXI > button.attachButton-_ACFSu.oldFileUploadPatched`);
 			if (uploadButton == null) return; // No need to replace the button if it isn't patched!
-			var inst = ReactTools.getReactInstance(uploadButton);
-			inst.memoizedProps.onClick = this.originalFunction;
-			this.originalFunction = null;
+			uploadButton.removeEventListener("click", this.eventListener);
 			uploadButton.classList.remove(`oldFileUploadPatched`);
 		}
 
