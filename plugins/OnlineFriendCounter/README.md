@@ -11,3 +11,7 @@ This plugin requires [ZeresPluginLibrary](https://github.com/rauenzi/BDPluginLib
 ## How to Install
 
 Download the `OnlineFriendCounter.plugin.js` file and place it into your BetterDiscord plugins folder. Afterwards, turn the plugin on, and you should now see how many of your friends are online under the home button.
+
+## Known Bugs
+
+When switching channels, the counter will temporarily get removed, but will appear again shortly.
