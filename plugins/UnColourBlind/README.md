@@ -12,4 +12,6 @@ This plugin doesn't rely on any libraries, so you can just run it as is!
 
 Download the `UnColourBlind.plugin.js` file and place it into your BetterDiscord plugins folder. Afterwards, turn the plugin on, and you should no longer see colourblind status icons.  
   
-If you wish to use the theme version instead, download the `UnColourBlind.theme.css` file and place it into your BetterDiscord themes folder.
+If you wish to use the theme version instead, download the `UnColourBlind.theme.css` file and place it into your BetterDiscord themes folder.  
+
+If you're using Vencord, go to `Settings > Themes > Online Themes`, and then paste the raw css link into the text box.
