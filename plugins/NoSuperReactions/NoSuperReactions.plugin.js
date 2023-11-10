@@ -2,7 +2,7 @@
  * @name NoSuperReactions
  * @author xenona
  * @description Removes super reactions.
- * @version 1.1.0
+ * @version 1.1.1
  * @source https://github.com/xenrelle/Xens-BD-Dump/tree/main/plugins/NoSuperReactions
  * @updateUrl https://raw.githubusercontent.com/xenrelle/Xens-BD-Dump/main/plugins/NoSuperReactions/NoSuperReactions.plugin.js
  */
@@ -23,7 +23,6 @@ module.exports = class MyPlugin {
 			div[class^="effectsWrapper_"],
 			div[class^="burstToggle_"],
 			div[aria-label="Add Super Reaction"],
-			div[id^="message-accessories"]:not(:has(div[class^="reaction_"]:not([style*="background"]))),
 			div[class^="reactions_"]:not(:has(div[class^="reaction_"]:not([style*="background"]))) {
 				display: none;
 			}
